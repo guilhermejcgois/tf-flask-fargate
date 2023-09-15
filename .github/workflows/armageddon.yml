@@ -85,4 +85,11 @@ jobs:
 
     # Destroy formed Terra
     - name: Terraform Destroy
+      if: github.ref == 'refs/heads/main'
+      env:
+        TF_VAR_exec_task_role: ${{ secrets.TF_VAR_exec_task_role }}
+        TF_VAR_subnets_id: ${{ secrets.TF_VAR_subnets_id }}
+        TF_VAR_rand_api_image: ${{ secrets.TF_VAR_rand_api_image }}
+        TF_VAR_time_api_image: ${{ secrets.TF_VAR_time_api_image }}
+        TF_VAR_vpc_id: ${{ secrets.TF_VAR_vpc_id }}
       run: terraform apply -destroy -auto-approve -input=false
